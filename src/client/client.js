@@ -19,9 +19,26 @@ function App() {
   /* Final Rendered Component/States */
   return (
     <div className="thanosContainer">
+      <div className="thanosContainerHeader">
+        <div className="thanosContainerHeaderInner">
+          <div className="thanosContainerHeaderLogo">ThanosBot</div>
+          <div className="thanosContainerHeaderFeatures">More Coming Soon</div>
+        </div>
+      </div>
+      <div className="thanosContainerVideo">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/mTBDPDUneKY"
+                frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen />
+      </div>
       <div className="thanosContainerInner">
+        <div className="thanosContainerInformation">
+          <div className="thanosContainerSecondaryHeader">
+            <div className="thanosContainerLocation">{"ThanosBot > " + activePage}</div>
+            <div className="thanosContainerCreator">Nick Sarris</div>
+          </div>
+        </div>
         <div className="thanosContainerSidebar">
-          <div className="thanosContainerHeader">
+          <div className="thanosContainerSecondaryHeader">
             <div className="thanosContainerTitle">Documentation</div>
             <div className="thanosContainerVersion">v1.0.0</div>
           </div>
@@ -54,12 +71,6 @@ function App() {
                 <Entry title={"/thanos/<groupId>/<nickname>/"} />
               </div>
             </div>
-          </div>
-        </div>
-        <div className="thanosContainerInformation">
-          <div className="thanosContainerHeader">
-            <div className="thanosContainerLocation">{"ThanosBot > " + activePage}</div>
-            <div className="thanosContainerCreator">Nick Sarris</div>
           </div>
         </div>
       </div>

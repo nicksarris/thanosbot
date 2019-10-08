@@ -1,0 +1,67 @@
+/*
+Thanos App Containers/CSS
+*/
+
+.thanosContainer {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+.thanosContainerInner {
+  width: 100%;
+  height: 100%;
+  max-width: 1024px;
+  display: flex;
+}
+.thanosContainerSidebar {
+  display: fixed;
+  min-width: 350px;
+  height: 100%;
+  background: #f2f7f7
+}
+.thanosContainerHeader {
+  margin: 30px;
+  display: flex;
+  align-items: center;
+}
+.thanosContainerTitle {
+  width: 100%;
+  text-align: left;
+  font-weight: 600;
+  font-size: 18px;
+}
+.thanosContainerVersion {
+  text-align: right;
+  font-weight: 400;
+  font-size: 18px;
+  color: #888;
+}
+.thanosContainerDocumentationSection {
+  margin-top: 40px;
+}
+.thanosContainerDocumentationContainer {
+  width: 100%;
+  margin-bottom: 0px;
+}
+.thanosContainerInformation {
+  width: calc(100% - 350px);
+  min-width: 674px;
+  height: 100%;
+}
+.thanosContainerLocation {
+  width: 100%;
+  text-align: left;
+  font-weight: 400;
+  font-size: 18px;
+  color: #888;
+}
+.thanosContainerCreator {
+  width: 100%;
+  text-align: right;
+  font-weight: 400;
+  font-size: 18px;
+  color: #888;
+}

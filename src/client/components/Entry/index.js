@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React from 'react';
 import './index.css';
 
 function Header({

@@ -1,0 +1,176 @@
+/*
+Thanos App s/CSS
+*/
+
+.thanos {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.thanosContainerHeader {
+  width: 100%;
+  height: 72px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  top: 0px;
+  z-index: 999;
+}
+.thanosContainerHeaderInner {
+  width: 100%;
+  max-width: 1024px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.thanosContainerHeaderLogo {
+  font-weight: 600;
+  font-size: 24px;
+  font-family: "Lato", sans-serif;
+  width: 100%;
+  text-align: left;
+  margin-left: 20px;
+  color: #fff;
+  text-decoration: none;
+  outline: 0;
+}
+.thanosContainerHeaderDocumentation {
+  width: 100%;
+  text-align: right;
+  margin-top: 4px;
+  margin-right: 20px;
+  color: #fff;
+  text-decoration: none;
+  outline: 0;
+}
+.thanosImage {
+  position: relative;
+  width: 100%;
+}
+.thanosImageOverlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+.thanosImageBackground {
+	width: 100%;
+	height: 650px;
+	background-color: #000;
+	background-image: url("../../assets/background.jpg");
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	z-index: -1
+}
+.thanosImageInner {
+  width: calc(100% - 40px);
+  text-align: center;
+  max-width: 1024px;
+  z-index: 2;
+}
+.thanosSecondary {
+  padding: 30px;
+  border-radius: 10px;
+  background-color: rgba(35, 47, 62, 0.5);
+  display: inline-block;
+}
+.thanosSecondaryTitle {
+  font-weight: 600;
+  font-size: 48px;
+  font-family: "Lato", sans-serif;
+  color: #fff;
+  text-align: center;
+}
+.thanosTagline {
+  font-weight: 600;
+  font-size: 16px;
+  font-family: "Lato", sans-serif;
+  color: #fff;
+  text-align: center;
+}
+.thanosButton {
+  font-weight: 600;
+  font-size: 16px;
+  font-family: "Lato", sans-serif;
+  background-color: #dedede;
+  margin-top: 30px;
+  padding: 10px 0px;
+  cursor: pointer;
+}
+.thanosDescription {
+  width: calc(100% - 40px);
+  padding: 50px 20px 60px;
+  background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-bottom: 1px solid #dedede
+}
+.thanosDescriptionInner {
+  width: 100%;
+  text-align: left;
+  max-width: 1024px
+}
+.thanosDescriptionSecondary {
+  width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	flex-direction: row
+}
+.thanosDescriptionSecondaryInner {
+  width: 100%;
+	display: grid;
+	grid-gap: 30px;
+	grid-template-columns: calc(100% / 3 - 20px)
+                         calc(100% / 3 - 20px)
+                         calc(100% / 3 - 20px);
+}
+.thanosSnap {
+  width: 100%;
+  padding: 50px 20px 60px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-bottom: 1px solid #dedede
+}
+
+@media only screen and (max-width: 700px) {
+  .thanosDescription {
+    padding: 30px 20px;
+  }
+  .thanosDescriptionSecondaryInner {
+    grid-gap: 15px;
+  	grid-template-columns: calc(100% / 2 - 7.5px)
+  												 calc(100% / 2 - 7.5px)
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .thanosSecondaryTitle {
+    font-size: 36px;
+  }
+  .thanosDescriptionSecondaryInner {
+  	grid-template-columns: calc(100%)
+  }
+}

@@ -1,0 +1,13 @@
+/*
+Branch Containers/CSS
+*/
+
+.branchTitle {
+  font-weight: 600;
+  font-size: 14px;
+  font-family: "Lato", sans-serif;
+  width: calc(100% - 60px);
+  padding: 0px 20px 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #dedede;
+}

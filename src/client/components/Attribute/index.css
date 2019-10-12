@@ -1,0 +1,41 @@
+/*
+Attribute Containers/CSS
+*/
+
+.attribute {
+  position: relative;
+	text-align: center;
+	width: 100%
+}
+.attributeSymbol {
+  font-weight: 400;
+  font-size: 24px;
+  font-family: "Lato", sans-serif;
+  color: #000;
+}
+.attributeHeader {
+  font-weight: 400;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  color: #000;
+  margin: 5px 0px;
+}
+.attributeDescription {
+  margin-top: 10px;
+  font-weight: 400;
+  font-size: 14px;
+  font-family: "Lato", sans-serif;
+  color: #8f95a3;
+}
+
+@media only screen and (max-width: 700px) {
+  .attribute:last-child {
+    display: none
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .attribute:first-child {
+    display: none
+  }
+}

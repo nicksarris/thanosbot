@@ -87,12 +87,14 @@ def serviceFindGroups():
     tokenId = request.args.get('token')
 
     if tokenId == "":
-        output["groups"] = ""
+        output["groups"] = []
+        output["groupsID"] = []
         output["errors"] = "Invalid Token ID"
         return json.dumps(output)
 
     currentGroups = findGroups(tokenId)
     output["groups"] = currentGroups["groups"]
+    output["groupsID"] = currentGroups["groupsID"]
     output["errors"] = currentGroups["errors"]
     return json.dumps(output)
 
@@ -193,9 +195,9 @@ Thanos Endpoints
 ==============================================================================
 """
 
-@app.route('/thanos/<groupId>/<nickname>', methods = ["GET"])
+@app.route('/thanos/<groupId>/snap', methods = ["GET"])
 @cross_origin(origin = '*',headers = ['Content-Type','Authorization'])
-def serviceThanos(groupId, nickname):
+def serviceThanos(groupId):
     output = {}
     tokenId = request.args.get('token')
 
@@ -204,7 +206,7 @@ def serviceThanos(groupId, nickname):
         output["errors"] = "Invalid Token ID"
         return json.dumps(output)
 
-    thanosData = thanosSnap(tokenId, groupId, nickname)
+    thanosData = thanosSnap(tokenId, groupId)
     output["message"] = thanosData["message"]
     output["errors"] = thanosData["errors"]
     return output

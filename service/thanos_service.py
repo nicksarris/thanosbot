@@ -8,7 +8,7 @@ import random
 
 from thanos_utils import *
 
-def thanosSnap(tokenId, groupId, nickname):
+def thanosSnap(tokenId, groupId):
 
     output = {}
     blacklisted = ["Thanos", "Nick Sarris"]
@@ -39,21 +39,14 @@ def thanosSnap(tokenId, groupId, nickname):
         output["errors"] = removedUsers["errors"]
         output["message"] = "Error Removing Users..."
 
-    # Step 5: Reverting Nickname
-    updatedNickname = updateNickname(tokenId, groupId, nickname)
-    if updatedNickname["errors"] != "":
-        output["errors"] = updatedNickname["errors"]
-        output["message"] = "Error Changing Nickname..."
-        return output
-
-    # Step 6: Generate Message
+    # Step 5: Generate Message
     messageData = sendMessage(tokenId, createdData["bot_id"])
     if messageData["errors"] != "":
         output["errors"] = messageData["errors"]
         output["message"] = "Error Sending Message..."
         return output
 
-    # Step 7: Deleting ThanosBot
+    # Step 6: Deleting ThanosBot
     destroyedData = destroyBots(tokenId, createdData["bot_id"])
     if destroyedData["errors"] != "":
         output["errors"] = destroyedData["errors"]

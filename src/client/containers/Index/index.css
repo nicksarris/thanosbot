@@ -85,7 +85,7 @@ Thanos App s/CSS
 .thanosSecondary {
   padding: 30px;
   border-radius: 10px;
-  background-color: rgba(35, 47, 62, 0.5);
+  background-color: rgba(35, 47, 62, 0.7);
   display: inline-block;
 }
 .thanosSecondaryTitle {
@@ -106,21 +106,28 @@ Thanos App s/CSS
   font-weight: 600;
   font-size: 16px;
   font-family: "Lato", sans-serif;
-  background-color: #dedede;
+  background-color: #fff;
   margin-top: 30px;
-  padding: 10px 0px;
+  padding: 8px 0px 10px;
   cursor: pointer;
+  outline: 0;
+  border: 1px solid #aaa;
+}
+.thanosButton:hover {
+  color: #fff;
+  background: #232f3e;
+  transition: .3s ease-in-out all;
 }
 .thanosDescription {
   width: calc(100% - 40px);
   padding: 50px 20px 60px;
-  background: #f9f9f9;
+  color: #fff;
+  background: #222;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  border-bottom: 1px solid #dedede
 }
 .thanosDescriptionInner {
   width: 100%;
@@ -146,13 +153,162 @@ Thanos App s/CSS
 .thanosSnap {
   width: 100%;
   padding: 50px 20px 60px;
-  background: #fff;
+  color: #fff;
+  background-image: url("../../assets/background_2.jpg");
+  background-size: cover;
+  background-position: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  border-bottom: 1px solid #dedede
+}
+.thanosSnapInner {
+  text-align: left;
+  max-width: 1024px;
+  padding: 30px;
+  background-color: rgba(35, 47, 62, 0.7);
+}
+.thanosSnapTitle {
+  font-weight: 600;
+  font-size: 32px;
+  font-family: "Lato", sans-serif;
+  text-align: center;
+}
+.thanosSnapStepContainer {
+  display: flex;
+}
+.thanosSnapStep {
+  width: calc(100% - 40px);
+  max-width: 1024px;
+  margin-top: 50px;
+  padding: 0px 20px;
+  text-align: center;
+}
+.thanosSnapInstruction {
+  font-weight: 400;
+  font-size: 16px;
+  font-family: "Lato", sans-serif;
+  text-align: center;
+}
+.thanosAPIContainer {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+.thanosAPIContainerInner {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  width: 470px;
+}
+.thanosGroupMeAPIKey {
+  font-weight: 400;
+  font-size: 14px;
+  font-family: "Lato", sans-serif;
+  width: calc(100% - 110px);
+  border: 1px solid #aaa;
+  border-radius: 0px;
+  padding: 8px;
+  margin-right: 10px;
+  text-align: left;
+}
+.thanosGroupMeButton {
+  font-weight: 600;
+  font-size: 14px;
+  font-family: "Lato", sans-serif;
+  width: 100px;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  border-radius: 0px;
+  outline: 0;
+}
+.thanosGroupMeButton:hover {
+  color: #fff;
+  background: #232f3e;
+  transition: .3s ease-in-out all;
+}
+.thanosAPITutorial {
+  font-weight: 400;
+  font-size: 12px;
+  font-family: "Lato", sans-serif;
+  text-align: center;
+  margin-top: 10px;
+}
+.thanosAPITutorialSecondary {
+  font-weight: 400;
+  font-size: 12px;
+  font-family: "Lato", sans-serif;
+  text-align: center;
+  margin-top: 5px;
+}
+.thanosSnapGroupSelectContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.thanosSnapGroupSelectContainerInner {
+  width: 470px;
+  height: 33px;
+  margin-top: 10px;
+  border: 1px solid #aaa;
+}
+.thanosGroupMeAPIKeyValue {
+  font-weight: 400;
+  font-size: 14px;
+  font-family: "Lato", sans-serif;
+  text-align: center;
+}
+.thanosSnapButton {
+  font-weight: 600;
+  font-size: 16px;
+  font-family: "Lato", sans-serif;
+  background-color: #fff;
+  cursor: pointer;
+  height: 35px;
+  padding: 0px 20px 5px;
+  outline: 0;
+  border: 1px solid #aaa;
+}
+.thanosSnapButton:hover {
+  color: #fff;
+  background: #232f3e;
+  transition: .3s ease-in-out all;
+}
+.thanosResults {
+  width: 100%;
+  padding: 50px 20px 60px;
+  background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.thanosResultsInner {
+  width: 100%;
+  text-align: left;
+  max-width: 1024px;
+}
+.thanosResultsTitle {
+  font-weight: 600;
+  font-size: 32px;
+  font-family: "Lato", sans-serif;
+  text-align: center;
+}
+
+@media only screen and (max-width: 1024px) {
+  .thanosSnapStepContainer {
+    flex-direction: column;
+  }
+  .thanosSnapInner {
+    flex-direction: column;
+  }
+  .thanosAPIContainerInner {
+    width: 100%;
+    max-width: 470px;
+  }
 }
 
 @media only screen and (max-width: 700px) {
@@ -164,6 +320,15 @@ Thanos App s/CSS
   	grid-template-columns: calc(100% / 2 - 7.5px)
   												 calc(100% / 2 - 7.5px)
   }
+  .thanosSnap {
+    padding: 30px 20px;
+  }
+  .thanosSnapStep {
+    margin-top: 30px;
+  }
+  .thanosSnapButton {
+    margin-top: 10px;
+  }
 }
 
 @media only screen and (max-width: 500px) {
@@ -172,5 +337,8 @@ Thanos App s/CSS
   }
   .thanosDescriptionSecondaryInner {
   	grid-template-columns: calc(100%)
+  }
+  .thanosSnapTitle {
+    font-size: 24px;
   }
 }

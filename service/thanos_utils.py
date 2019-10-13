@@ -12,17 +12,22 @@ def findGroups(tokenId):
     headers = {"content-type": "application/json"}
     url = "https://api.groupme.com/v3/groups?token=" + tokenId
     response = requests.get(url, headers=headers)
-    data = json.loads(response.text)["response"]
 
     if (int(response.status_code) not in [200, 201, 202]):
-        output["groups"] = ""
-        output["errors"] = data["meta"]["errors"]
+        output["groups"] = []
+        output["groupsID"] = []
+        output["errors"] = json.loads(response.text)["meta"]["errors"]
         return output
 
     output["groups"] = []
+    output["groupsID"] = []
+    data = json.loads(response.text)["response"]
+
     for group in data:
         list.append(output["groups"], group["name"])
+        list.append(output["groupsID"], group["group_id"])
 
+    output["errors"] = ""
     return output
 
 def findGroupId(tokenId, groupName):
@@ -31,14 +36,15 @@ def findGroupId(tokenId, groupName):
     headers = {"content-type": "application/json"}
     url = "https://api.groupme.com/v3/groups?token=" + tokenId
     response = requests.get(url, headers=headers)
-    data = json.loads(response.text)["response"]
 
     if (int(response.status_code) not in [200, 201, 202]):
         output["group_id"] = ""
-        output["errors"] = data["meta"]["errors"]
+        output["errors"] = json.loads(response.text)["meta"]["errors"]
         return output
 
     output["group_id"] = ""
+    data = json.loads(response.text)["response"]
+
     for group in data:
         if group["name"] == groupName:
             output["group_id"] = group["group_id"]
@@ -57,13 +63,13 @@ def createBots(tokenId, groupId):
     thanosBot = {"bot": {'name': "ThanosBot", 'group_id': groupId}}
     url = "https://api.groupme.com/v3/bots?token=" + tokenId
     response = requests.post(url, data=json.dumps(thanosBot), headers=headers)
-    data = json.loads(response.text)
 
     if (int(response.status_code) not in [200, 201, 202]):
         output["bot_id"] = ""
-        output["errors"] = data["meta"]["errors"]
+        output["errors"] = json.loads(response.text)["meta"]["errors"]
         return output
 
+    data = json.loads(response.text)
     output["bot_id"] = data["response"]["bot"]["bot_id"]
     output["errors"] = ""
     return output
@@ -75,13 +81,13 @@ def updateNickname(tokenId, groupId, nickname):
     nickname = {"membership": {'nickname': nickname}}
     url = "https://api.groupme.com/v3/groups/" + groupId + "/memberships/update?token=" + tokenId
     response = requests.post(url, data=json.dumps(nickname), headers=headers)
-    data = json.loads(response.text)
 
     if (int(response.status_code) not in [200, 201, 202]):
         output["nickname"] = ""
-        output["errors"] = data["meta"]["errors"]
+        output["errors"] = json.loads(response.text)["meta"]["errors"]
         return output
 
+    data = json.loads(response.text)
     output["nickname"] = nickname
     output["errors"] = ""
     return output
@@ -92,14 +98,15 @@ def getSelectedUsers(tokenId, groupId, blacklisted):
     headers = {"content-type": "application/json"}
     url = "https://api.groupme.com/v3/groups/" + groupId + "?token=" + tokenId
     response = requests.get(url, headers=headers)
-    data = json.loads(response.text)["response"]
 
     if (int(response.status_code) not in [200, 201, 202]):
         output["users"] = ""
-        output["errors"] = data["meta"]["errors"]
+        output["errors"] = json.loads(response.text)["meta"]["errors"]
         return output
 
     userList = []
+    data = json.loads(response.text)["response"]
+
     for user in data["members"]:
         if user['nickname'] not in blacklisted:
             list.append(userList, user["id"])
@@ -119,13 +126,12 @@ def removeSelectedUsers(tokenId, groupId, userList):
         headers = {"content-type": "application/json"}
         url = "https://api.groupme.com/v3/groups/" + groupId + "/members/" + \
               membershipId + "/remove?token=" + tokenId
-
         response = requests.post(url, headers=headers)
-        data = json.loads(response.text)
 
         if (int(response.status_code) not in [200, 201, 202]):
-            list.append(output["errors"], data["meta"]["errors"])
+            list.append(output["errors"], json.loads(response.text)["meta"]["errors"])
 
+        data = json.loads(response.text)
         list.append(output["users"], membershipId)
 
     return output

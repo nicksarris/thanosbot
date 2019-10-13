@@ -11,13 +11,11 @@ Attribute Containers/CSS
   font-weight: 400;
   font-size: 24px;
   font-family: "Lato", sans-serif;
-  color: #000;
 }
 .attributeHeader {
   font-weight: 400;
   font-size: 18px;
   font-family: "Lato", sans-serif;
-  color: #000;
   margin: 5px 0px;
 }
 .attributeDescription {
@@ -25,7 +23,6 @@ Attribute Containers/CSS
   font-weight: 400;
   font-size: 14px;
   font-family: "Lato", sans-serif;
-  color: #8f95a3;
 }
 
 @media only screen and (max-width: 700px) {

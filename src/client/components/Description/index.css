@@ -12,6 +12,8 @@ Description Containers/CSS
   align-items: center;
   justify-content: center;
   text-align: center;
+  border-top: 3px solid #555;
+  border-bottom: 3px solid #555;
 }
 .descriptionContainerInner {
   width: 100%;

@@ -15,6 +15,7 @@ import MainImage from "../../components/MainImage/index.js"
 import Select from "../../components/Select/index.js"
 import SnapButton from "../../components/SnapButton/index.js"
 import SnapContainer from "../../components/SnapContainer/index.js"
+import SnapCooldown from "../../components/SnapCooldown/index.js"
 import SnapError from "../../components/SnapError/index.js"
 import SnapInstruction from "../../components/SnapInstruction/index.js"
 import SnapModule from "../../components/SnapModule/index.js"
@@ -48,26 +49,6 @@ function Index() {
   /* Status UseEffect */
   useEffect(() => {
 
-    /* Check to see if API is Active */
-    function checkAPI() {
-      const response = new Promise((resolve, reject) => {
-        fetch('http://localhost:3001/api/activity/active', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }).then((response) => {
-          updateStatus("Active")
-          resolve(response)
-        }).catch((error) => {
-          updateStatus("Inactive")
-          updateError("The Service is Currently Unavailable")
-          reject(error);
-        })
-      })
-      return response
-    }
-
     /* Convert 24 Hour Cycle to 12 Hour Cycle */
     function formatTime(hour) {
       if (hour > 12) {
@@ -86,11 +67,32 @@ function Index() {
       }
       else if (currentDate.getTime() < cooldownDate.getTime()) {
         var time = formatTime(cooldownDate.getHours()) + ":" + cooldownDate.getMinutes()
+        console.log("Current Cooldown Period: " + time)
         updateCooldown(time);
       }
       else {
         updateCooldown("N/A");
       }
+    }
+
+    /* Check to see if API is Active */
+    function checkAPI() {
+      const response = new Promise((resolve, reject) => {
+        fetch('http://localhost:3001/api/activity/active', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }).then((response) => {
+          updateStatus("Active")
+          resolve(response)
+        }).catch((error) => {
+          updateStatus("Inactive")
+          updateError("The Service is Currently Unavailable")
+          reject(error);
+        })
+      })
+      return response
     }
 
     /* Check Cooldown's Current Status Initially */
@@ -128,6 +130,32 @@ function Index() {
   /* Snap UseEffect */
   useEffect(() => {
 
+    /* Convert 24 Hour Cycle to 12 Hour Cycle */
+    function formatTime(hour) {
+      if (hour > 12) {
+        return hour - 12;
+      }
+      else if (hour === 0) {
+        return 12;
+      }
+      return hour;
+    }
+
+    /* Check to see if Snap is on Cooldown */
+    function checkCooldown(currentDate, cooldownDate) {
+      if (cooldownDate == null) {
+        updateCooldown("N/A");
+      }
+      else if (currentDate.getTime() < cooldownDate.getTime()) {
+        var time = formatTime(cooldownDate.getHours()) + ":" + cooldownDate.getMinutes()
+        console.log("Current Cooldown Period: " + time)
+        updateCooldown(time);
+      }
+      else {
+        updateCooldown("N/A");
+      }
+    }
+
       /* Perform Thanos Snap on Selected Group */
       function performThanosSnap() {
         const response = new Promise((resolve, reject) => {
@@ -150,12 +178,15 @@ function Index() {
         })
         updateError("");
         updateSnapState(false);
+        var currentDate = new Date()
+        var cooldownDate = new Date(currentDate.getTime() + 30 * 60000);
+        checkCooldown(currentDate, cooldownDate)
         return response;
       }
 
       /* Ensure User has not Snapped Before */
       if (isSnapping === true) {
-        if (cooldown === "") {
+        if (cooldown === "N/A") {
           performThanosSnap();
           var currentDate = '[' + new Date().toUTCString() + '] ';
           console.log("Attempted Thanos Snap: " + currentDate);
@@ -192,7 +223,6 @@ function Index() {
   function updateGroups() {
     finalizeAPIKey(currentAPIKey);
     findGroups().then((response) => {
-      console.log(response);
       if (response["errors"] === "") {
         var groupData = response["groups"].map(function(e, i) {
           return [e, " - ", response["groupsID"][i]]
@@ -291,6 +321,7 @@ function Index() {
           </SnapModule>
         </SnapModuleRow>
         <SnapModule>
+          <SnapCooldown cooldown={cooldown} />
           <SnapButton title={"Perform the Snap"} function={setThanosSnap} />
         </SnapModule>
       </SnapContainer>

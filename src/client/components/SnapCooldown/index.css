@@ -1,0 +1,22 @@
+/*
+SnapCooldown Containers/CSS
+*/
+
+.snapCooldown {
+  margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.snapCooldownTitle {
+  font-weight: 400;
+  font-size: 14px;
+  font-family: "Lato", sans-serif;
+}
+.snapCooldownState {
+  font-weight: 600;
+  font-size: 14px;
+  font-family: "Lato", sans-serif;
+  margin-left: 5px;
+}

@@ -11,4 +11,5 @@ Footer Containers/CSS
   background: #222;
   text-align: center;
   padding: 30px 20px;
+  border-top: 3px solid #555;
 }

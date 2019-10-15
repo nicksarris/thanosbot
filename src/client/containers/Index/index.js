@@ -15,6 +15,7 @@ import MainImage from "../../components/MainImage/index.js"
 import Select from "../../components/Select/index.js"
 import SnapButton from "../../components/SnapButton/index.js"
 import SnapContainer from "../../components/SnapContainer/index.js"
+import SnapError from "../../components/SnapError/index.js"
 import SnapInstruction from "../../components/SnapInstruction/index.js"
 import SnapModule from "../../components/SnapModule/index.js"
 import SnapModuleRow from "../../components/SnapModuleRow/index.js"
@@ -34,6 +35,7 @@ function Index() {
   const [finalGroupID, setGroupID] = useState("N/A");
   const [options, updateOptions] = useState([]);
   const [status, updateStatus] = useState("Inactive");
+  const [error, updateError] = useState("");
   const [hasSnapped, updateSnap] = useState(false);
   const [isSnapping, updateSnapState] = useState(false);
 
@@ -58,6 +60,7 @@ function Index() {
           resolve(response)
         }).catch((error) => {
           updateStatus("Inactive")
+          updateError("The Service is Currently Unavailable")
           reject(error);
         })
       })
@@ -84,12 +87,17 @@ function Index() {
             },
           }).then((response) => {
             response.json().then((response) => {
-              resolve(response)
+              resolve(response);
             })
+          }).catch((error) => {
+            updateSnap(false);
+            updateError("Invalid Access Token or Group ID")
+            reject(error);
           })
         })
         updateSnap(true);
         updateSnapState(false);
+        updateError("");
         return response;
       }
 
@@ -187,6 +195,7 @@ function Index() {
       <SnapContainer ref={scrollRef}>
         <SnapTitle title={"Perform the Snap"} />
         <SnapStatus status={status} />
+        <SnapError error={error} />
         <SnapModuleRow>
           <SnapModule>
             <SnapInstruction title={"Step 1: Enter your Access Token"} />

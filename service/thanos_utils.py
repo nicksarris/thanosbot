@@ -60,7 +60,6 @@ def createBots(tokenId, groupId):
 
     output = {}
     hash =  "%032x" % random.getrandbits(128)
-    print(hash)
     headers = {"content-type": "application/json"}
     thanosBot = {"bot": {'name': "ThanosBot", 'group_id': groupId, "callback_url": "http://" + hash}}
     url = "https://api.groupme.com/v3/bots?token=" + tokenId
@@ -176,7 +175,3 @@ def destroyBots(tokenId, botId):
     output["message"] = "Bot Successfully Removed"
     output["errors"] = ""
     return output
-
-if __name__ == "__main__":
-    tokenId = "BVXvtRfboejAFcct6hLewW8j3iCmvfL3Et1LPKVA"
-    print(findGroups(tokenId))

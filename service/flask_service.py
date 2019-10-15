@@ -49,7 +49,7 @@ def serviceCreateBots(groupId):
 
     if tokenId == "":
         output["bot_id"] = ""
-        output["errors"] = "Invalid Token ID"
+        output["errors"] = "Invalid Access Token"
         return json.dumps(output)
 
     createdData = createBots(tokenId, groupId)
@@ -65,7 +65,7 @@ def serviceDestroyBots(groupId, botId):
 
     if tokenId == "":
         output["message"] = ""
-        output["errors"] = "Invalid Token ID"
+        output["errors"] = "Invalid Access Token"
         return json.dumps(output)
 
     destroyedData = destroyBots(tokenId, botId)
@@ -91,7 +91,7 @@ def serviceFindGroups():
     if tokenId == "":
         output["groups"] = []
         output["groupsID"] = []
-        output["errors"] = "Invalid Token ID"
+        output["errors"] = "Invalid Access Token"
         return json.dumps(output)
 
     currentGroups = findGroups(tokenId)
@@ -108,7 +108,7 @@ def serviceFindGroupId(groupName):
 
     if tokenId == "":
         output["groups"] = ""
-        output["errors"] = "Invalid Token ID"
+        output["errors"] = "Invalid Access Token"
         return json.dumps(output)
 
     currentGroupId = findGroupId(tokenId, groupName)
@@ -125,7 +125,7 @@ def serviceUpdateNickname(groupId):
 
     if tokenId == "":
         output["nickname"] = ""
-        output["errors"] = "Invalid Token ID"
+        output["errors"] = "Invalid Access Token"
         return json.dumps(output)
 
     if nickname == "":
@@ -147,7 +147,7 @@ def serviceGetSelectedUsers(groupId):
 
     if tokenId == "":
         output["users"] = ""
-        output["errors"] = "Invalid Token ID"
+        output["errors"] = "Invalid Access Token"
         return json.dumps(output)
 
     selectedUsers = getSelectedUsers(tokenId, groupId, blacklisted)
@@ -164,7 +164,7 @@ def serviceRemoveSelectedUsers(groupId):
 
     if tokenId == "":
         output["users"] = ""
-        output["errors"] = "Invalid Token ID"
+        output["errors"] = "Invalid Access Token"
         return json.dumps(output)
 
     removedUsers = removeSelectedUsers(tokenId, groupId, selectedUsers)
@@ -180,7 +180,7 @@ def serviceSendMessage(botId):
 
     if tokenId == "":
         output["message"] = ""
-        output["errors"] = "Invalid Token ID"
+        output["errors"] = "Invalid Access Token"
         return json.dumps(output)
 
     messageData = sendMessage(tokenId, botId)
@@ -205,7 +205,7 @@ def serviceThanos(groupId):
 
     if tokenId == "":
         output["message"] = ""
-        output["errors"] = "Invalid Token ID"
+        output["errors"] = "Invalid Access Token"
         return json.dumps(output)
 
     thanosData = thanosSnap(tokenId, groupId)

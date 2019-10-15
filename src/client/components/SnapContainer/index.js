@@ -4,6 +4,7 @@ import './index.css';
 const SnapContainer = React.forwardRef((props, ref) => (
   /* Final Rendered Component/States */
   <div className="snapContainer" ref={ref}>
+    <div className="snapContainerOverlay" />
     <div className="snapContainerInner">
       {props.children}
     </div>

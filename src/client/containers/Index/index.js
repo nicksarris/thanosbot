@@ -36,6 +36,7 @@ function Index() {
   const [options, updateOptions] = useState([]);
   const [status, updateStatus] = useState("Inactive");
   const [error, updateError] = useState("");
+  const [cooldown, updateCooldown] = useState("");
   const [hasSnapped, updateSnap] = useState(false);
   const [isSnapping, updateSnapState] = useState(false);
 
@@ -67,10 +68,60 @@ function Index() {
       return response
     }
 
-    /* Check API's Current Status */
+    /* Convert 24 Hour Cycle to 12 Hour Cycle */
+    function formatTime(hour) {
+      if (hour > 12) {
+        return hour - 12;
+      }
+      else if (hour === 0) {
+        return 12;
+      }
+      return hour;
+    }
+
+    /* Check to see if Snap is on Cooldown */
+    function checkCooldown(currentDate, cooldownDate) {
+      if (cooldownDate == null) {
+        updateCooldown("N/A");
+      }
+      else if (currentDate.getTime() < cooldownDate.getTime()) {
+        var time = formatTime(cooldownDate.getHours()) + ":" + cooldownDate.getMinutes()
+        updateCooldown(time);
+      }
+      else {
+        updateCooldown("N/A");
+      }
+    }
+
+    /* Check Cooldown's Current Status Initially */
+    var currentDateInitial = new Date()
+    var cooldownDateInitial = new Date(window.localStorage.getItem("cooldown"));
+    checkCooldown(currentDateInitial, cooldownDateInitial);
+    var cooldownInitial = '[' + new Date().toUTCString() + '] ';
+    console.log("Checked Cooldown Status: " + cooldownInitial)
+
+    /* Check API's Current Status Initially */
     checkAPI();
-    var currentDate = '[' + new Date().toUTCString() + '] ';
-    console.log("Checked API Status: " + currentDate)
+    var apiInitial = '[' + new Date().toUTCString() + '] ';
+    console.log("Checked API Status: " + apiInitial)
+
+    /* Check API/Cooldown Status Every Minute */
+    const interval = setInterval(() => {
+
+      /* Check Cooldown's Current Status */
+      var currentDate = new Date()
+      var cooldownDate = new Date(window.localStorage.getItem("cooldown"));
+      checkCooldown(currentDate, cooldownDate);
+      var cooldownInterval = '[' + new Date().toUTCString() + '] ';
+      console.log("Checked Cooldown Status: " + cooldownInterval)
+
+      /* Check API's Current Status */
+      checkAPI();
+      var apiInterval = '[' + new Date().toUTCString() + '] ';
+      console.log("Checked API Status: " + apiInterval)
+
+    }, 60000);
+    return () => clearInterval(interval);
 
   }, []);
 
@@ -87,17 +138,20 @@ function Index() {
             },
           }).then((response) => {
             response.json().then((response) => {
+              var currentDate = new Date()
+              var cooldownDate = new Date(currentDate.getTime() + 30 * 60000);
+              window.localStorage.setItem("cooldown", cooldownDate);
               resolve(response);
             })
           }).catch((error) => {
             updateSnap(false);
-            updateError("Invalid Access Token or Group ID")
+            updateError("Invalid Access Token")
             reject(error);
           })
         })
+        updateError("");
         updateSnap(true);
         updateSnapState(false);
-        updateError("");
         return response;
       }
 
@@ -140,6 +194,7 @@ function Index() {
   function updateGroups() {
     finalizeAPIKey(currentAPIKey);
     findGroups().then((response) => {
+      console.log(response);
       if (response["errors"] === "") {
         var groupData = response["groups"].map(function(e, i) {
           return [e, " - ", response["groupsID"][i]]
@@ -150,6 +205,7 @@ function Index() {
       else {
         updateOptions([])
         setGroupID("N/A")
+        updateError("Invalid Access Token")
       }
     });
   }
@@ -157,19 +213,25 @@ function Index() {
   /* Utility Function to Update Group Data*/
   function setAPIData(e) {
     if (e.key === 'Enter') {
+      updateError("");
       updateGroups();
     }
   }
 
   /* Utility Function to Update Group Data*/
   function setAPIDataSecondary() {
+    updateError("");
     updateGroups();
   }
 
   /* Function to Ensure that User has ONLY SNAPPED ONCE */
   function setThanosSnap() {
+    updateError("");
     if (hasSnapped === false && isSnapping === false) {
       updateSnapState(true)
+    }
+    else if (hasSnapped === true) {
+      updateError("You Have Already Performed a Successful Snap");
     }
   }
 
@@ -198,8 +260,8 @@ function Index() {
         <SnapError error={error} />
         <SnapModuleRow>
           <SnapModule>
+            {/* Snap Functionality (1st Module) */}
             <SnapInstruction title={"Step 1: Enter your Access Token"} />
-            {/* Snap Functionality (First Module) */}
             <div className="thanosFirstModule">
               <div className="thanosFirstModuleInner">
                 <input className="thanosFirstModuleInput"
@@ -218,8 +280,8 @@ function Index() {
             </SnapText>
           </SnapModule>
           <SnapModule>
+            {/* Snap Functionality (2nd Module) */}
             <SnapInstruction title={"Step 2: Select the Group to Snap"} />
-            {/* Snap Functionality (Second Module) */}
             <div className="thanosSecondModule">
               <div className="thanosSecondModuleInner">
                 <Select options={options} updateGroup={setGroupData}/>

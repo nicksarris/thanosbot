@@ -3,7 +3,6 @@ SnapError Containers/CSS
 */
 
 .snapError {
-  margin-top: 20px;
   width: calc(100% - 40px);
   display: flex;
   justify-content: center;
@@ -16,6 +15,7 @@ SnapError Containers/CSS
   font-family: "Lato", sans-serif;
   color: #880000;
   border-radius: 5px;
+  margin-top: 20px;
   background-color: #fff;
   padding: 10px;
 }

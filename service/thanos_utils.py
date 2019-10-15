@@ -114,7 +114,7 @@ def getSelectedUsers(tokenId, groupId, blacklisted):
                 list.append(userList, user["id"])
 
     random.shuffle(userList)
-    output["users"] = userList[0: math.ceil(len(userList)/2) + 1]
+    output["users"] = userList[0: math.ceil(len(userList) / 2)]
     output["errors"] = ""
     return output
 

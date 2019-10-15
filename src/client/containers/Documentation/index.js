@@ -16,12 +16,16 @@ import './index.css';
 
 function Documentation() {
   /* Individual Component States */
+  /*
   const [groupID, setGroupID] = useState("");
   const [tokenID, setTokenID] = useState("");
   const [currentStep, updateStep] = useState("");
+  */
   const [activePage, setActivePage] = useState("Example Usage");
+  /*
   const [isLoading, setLoading] = useState(false);
-  /* Final Rendered Component/States */
+  */
+/* Final Rendered Component/States */
   return (
     <div className="thanos">
       <div className="thanosContainerHeaderSecondary">

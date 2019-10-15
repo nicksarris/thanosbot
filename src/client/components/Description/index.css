@@ -1,0 +1,53 @@
+/*
+Description Containers/CSS
+*/
+
+.descriptionContainer {
+  width: calc(100% - 40px);
+  padding: 50px 20px 60px;
+  color: #fff;
+  background: #222;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.descriptionContainerInner {
+  width: 100%;
+  text-align: left;
+  max-width: 1024px
+}
+.descriptionContainerSecondary {
+  width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	flex-direction: row
+}
+.descriptionContainerSecondaryInner {
+  width: 100%;
+	display: grid;
+	grid-gap: 30px;
+	grid-template-columns: calc(100% / 3 - 20px)
+                         calc(100% / 3 - 20px)
+                         calc(100% / 3 - 20px);
+}
+
+@media only screen and (max-width: 700px) {
+  .descriptionContainer {
+    padding: 30px 20px;
+  }
+  .descriptionContainerSecondaryInner {
+    grid-gap: 15px;
+  	grid-template-columns: calc(100% / 2 - 7.5px)
+  												 calc(100% / 2 - 7.5px)
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .descriptionContainerSecondaryInner {
+  	grid-template-columns: calc(100%)
+  }
+}

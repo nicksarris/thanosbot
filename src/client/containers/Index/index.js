@@ -4,30 +4,58 @@
  *
  */
 
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
 
 /* Components Used */
 import Attribute from "../../components/Attribute/index.js"
+import Description from "../../components/Description/index.js"
+import Footer from "../../components/Footer/index.js"
+import HeaderTransparent from "../../components/HeaderTransparent/index.js"
+import MainImage from "../../components/MainImage/index.js"
 import Select from "../../components/Select/index.js"
+import SnapButton from "../../components/SnapButton/index.js"
+import SnapContainer from "../../components/SnapContainer/index.js"
+import SnapInstruction from "../../components/SnapInstruction/index.js"
+import SnapModule from "../../components/SnapModule/index.js"
+import SnapModuleRow from "../../components/SnapModuleRow/index.js"
+import SnapText from "../../components/SnapText/index.js"
+import SnapTitle from "../../components/SnapTitle/index.js"
 /* Components Used */
 
+import messages from './messages'
 import './index.css';
 
 function Index() {
+
   /* Individual Component States */
   const [currentAPIKey, setAPIKey] = useState("");
   const [finalAPIKey, finalizeAPIKey] = useState("N/A");
-  const [finalGroup, setGroup] = useState("");
   const [finalGroupID, setGroupID] = useState("N/A");
   const [options, updateOptions] = useState([]);
-  /* Useful Functions */
+  const [hasSnapped, updateSnap] = useState(false);
+  const [isSnapping, updateSnapState] = useState(false);
+
+  /* Individual Component Refs */
+  const scrollRef = useRef(null)
+  const scrollToRef = (ref) => window.scrollTo({top: ref.current.offsetTop, behavior: "smooth"})
+  const executeScroll = () => scrollToRef(scrollRef)
+
+  /* Snap UseEffect */
+  useEffect(() => {
+      if (isSnapping === true) {
+        if (hasSnapped === false) {
+          performThanosSnap()
+        }
+      }
+  }, [isSnapping]);
+
+  /* Set Group ID given Input */
   function setGroupData(e) {
     const groupData = e.split(",")
-    console.log(groupData);
-    setGroup(groupData[0])
     setGroupID(groupData[groupData.length - 1])
   }
+
+  /* Fetch ALL Possible Groups to Snap */
   function findGroups() {
     const response = new Promise((resolve, reject) => {
       fetch('http://localhost:3001/groups?token=' + currentAPIKey, {
@@ -36,117 +64,133 @@ function Index() {
           'Content-Type': 'application/json',
         },
       }).then((response) => {
-        const json = response.json().then((response) => {
+        response.json().then((response) => {
           resolve(response)
         })
       })
     })
     return response
   }
-  function performThanosSnap() {
-    console.log(finalGroupID, finalAPIKey);
-  }
-  function setAPIData(e) {
-    if (e.key === 'Enter') {
-      updateGroups();
-    }
-  }
-  function setAPIDataSecondary() {
-    updateGroups();
-  }
+
+  /* Update Group Data with findGroups() Function */
   function updateGroups() {
     finalizeAPIKey(currentAPIKey);
     findGroups().then((response) => {
-      console.log(response);
       if (response["errors"] === "") {
         var groupData = response["groups"].map(function(e, i) {
           return [e, " - ", response["groupsID"][i]]
         })
         updateOptions(groupData)
-        setGroup(groupData[0][0])
         setGroupID(groupData[0][2])
       }
       else {
         updateOptions([])
-        setGroup("")
         setGroupID("N/A")
       }
     });
   }
+
+  /* Perform Thanos Snap on Selected Group */
+  function performThanosSnap() {
+    const response = new Promise((resolve, reject) => {
+      fetch('http://localhost:3001/thanos/' + finalGroupID + '/snap?token=' + finalAPIKey, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then((response) => {
+        response.json().then((response) => {
+          resolve(response)
+        })
+      })
+    })
+    updateSnap(true);
+    updateSnapState(false);
+    return response
+  }
+
+  /* Utility Function to Update Group Data*/
+  function setAPIData(e) {
+    if (e.key === 'Enter') {
+      updateGroups();
+    }
+  }
+
+  /* Utility Function to Update Group Data*/
+  function setAPIDataSecondary() {
+    updateGroups();
+  }
+
+  /* Function to Ensure that User has ONLY SNAPPED ONCE */
+  function setThanosSnap() {
+    if (hasSnapped === false && isSnapping === false) {
+      updateSnapState(true)
+    }
+  }
+
   /* Final Rendered Component/States */
   return (
     <div className="thanos">
-      <div className="thanosContainerHeader">
-        <div className="thanosContainerHeaderInner">
-          <Link className="thanosContainerHeaderLogo" to="/">ThanosBot</Link>
-          <Link className="thanosContainerHeaderDocumentation" to="/documentation">Documentation</Link>
-        </div>
-      </div>
-      <div className="thanosImage">
-        <div className="thanosImageOverlay" />
-        <div className="thanosImageBackground">
-          <div className="thanosImageInner">
-            <div className="thanosSecondary">
-              <div className="thanosSecondaryTitle">ThanosBot</div>
-              <div className="thanosTagline">Perfectly balanced, as all things should be</div>
-              <div className="thanosButton">Perform the Snap</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="thanosDescription">
-        <div className="thanosDescriptionInner">
-          <div className="thanosDescriptionSecondary">
-            <div className="thanosDescriptionSecondaryInner">
-              <Attribute title={"Quick"} description={"While not instantaneous (We are limited by the GroupMe API), ThanosBot can easily snap all but the biggest groups before anyone will notice the chaos ensuing."} />
-              <Attribute title={"Entertaining"} description={"ThanosBot seeks to provide the entertainment that can only come from watching half of your closest friends (or acquaintances) crumble to dust. No assembly required."} />
-              <Attribute title={"Simple"} description={"It's never been easier to randomly select and remove half of any one group. With ThanosBot, all that's necessary is the push of a single button."} />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="thanosSnap">
-        <div className="thanosSnapInner">
-          <div className="thanosSnapTitle">Perform the Snap</div>
-          <div className="thanosSnapStepContainer">
-            <div className="thanosSnapStep">
-              <div className="thanosSnapInstruction">Step 1: Enter your Access Token</div>
-              <div className="thanosAPIContainer">
-                <div className="thanosAPIContainerInner">
-                  <input className="thanosGroupMeAPIKey"
-                         placeholder={"Enter your GroupMe Access Token ..."}
-                         onChange={e => setAPIKey(e.target.value)}
-                         onKeyDown={setAPIData}/>
-                  <button className="thanosGroupMeButton" onClick={setAPIDataSecondary}>Submit</button>
-                </div>
-              </div>
-              <div className="thanosAPITutorial">{"Login to "}
-                <a href="https://dev.groupme.com/">https://dev.groupme.com</a>
-                {" and locate your 'Access Token'."}
-              </div>
-              <div className="thanosAPITutorialSecondary">{"Current Access Token: " + finalAPIKey}</div>
-            </div>
-            <div className="thanosSnapStep">
-              <div className="thanosSnapInstruction">Step 2: Select the Group to Snap</div>
-              <div className="thanosSnapGroupSelectContainer">
-                <div className="thanosSnapGroupSelectContainerInner">
-                  <Select options={options} updateGroup={setGroupData}/>
-                </div>
-              </div>
-              <div className="thanosAPITutorialSecondary">{"Current Group ID: " + finalGroupID}</div>
-            </div>
-          </div>
-          <div className="thanosSnapStep">
-            <button className="thanosSnapButton" onClick={performThanosSnap}>Perform the Snap</button>
-          </div>
-        </div>
-      </div>
-      <div className="thanosResults">
-        <div className="thanosResultsTitle">Snap Results</div>
-        <div className="thanosResultsInner">
 
-        </div>
-      </div>
+      {/* Snap Header */}
+      <HeaderTransparent />
+      <MainImage title={"ThanosBot"}
+                 tagline={"Perfectly balanced, as all things should be"}
+                 button={"Perform the Snap"}
+                 scroll={executeScroll}/>
+
+      {/* Snap Attributes */}
+      <Description>
+        <Attribute title={"Quick"} description={messages.attribute1} />
+        <Attribute title={"Entertaining"} description={messages.attribute2} />
+        <Attribute title={"Simple"} description={messages.attribute3} />
+      </Description>
+
+      {/* Snap Functionality */}
+      <SnapContainer ref={scrollRef}>
+        <SnapTitle title={"Perform the Snap"} />
+        <SnapModuleRow>
+          <SnapModule>
+            <SnapInstruction title={"Step 1: Enter your Access Token"} />
+            {/* Snap Functionality (First Module) */}
+            <div className="thanosFirstModule">
+              <div className="thanosFirstModuleInner">
+                <input className="thanosFirstModuleInput"
+                       placeholder={"Enter your GroupMe Access Token ..."}
+                       onChange={e => setAPIKey(e.target.value)}
+                       onKeyDown={setAPIData}/>
+                <SnapButton title={"Submit"} function={setAPIDataSecondary} />
+              </div>
+            </div>
+            <SnapText style={{"margin-top": "10px"}}>{"Login to "}
+              <a href="https://dev.groupme.com/">https://dev.groupme.com</a>
+              {" and locate your 'Access Token'."}
+            </SnapText>
+            <SnapText style={{"margin-top": "5px"}}>
+              {"Current Access Token: " + finalAPIKey}
+            </SnapText>
+          </SnapModule>
+          <SnapModule>
+            <SnapInstruction title={"Step 2: Select the Group to Snap"} />
+            {/* Snap Functionality (Second Module) */}
+            <div className="thanosSecondModule">
+              <div className="thanosSecondModuleInner">
+                <Select options={options} updateGroup={setGroupData}/>
+              </div>
+            </div>
+            <SnapText style={{"margin-top": "10px"}}>
+              {"Current Group ID: " + finalGroupID}
+            </SnapText>
+          </SnapModule>
+        </SnapModuleRow>
+        <SnapModule>
+          <SnapButton title={"Perform the Snap"} function={setThanosSnap} />
+        </SnapModule>
+      </SnapContainer>
+
+      {/* Snap Footer */}
+      <Footer />
+
     </div>
   );
 }

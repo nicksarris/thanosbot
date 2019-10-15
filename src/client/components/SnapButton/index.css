@@ -1,0 +1,20 @@
+/*
+SnapModule Containers/CSS
+*/
+
+.snapButton {
+  font-weight: 600;
+  font-size: 16px;
+  font-family: "Lato", sans-serif;
+  background-color: #fff;
+  cursor: pointer;
+  height: 35px;
+  padding: 0px 20px;
+  outline: 0;
+  border: 1px solid #aaa;
+}
+.snapButton:hover {
+  color: #fff;
+  background: #232f3e;
+  transition: .3s ease-in-out all;
+}

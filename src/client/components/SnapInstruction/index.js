@@ -1,11 +1,11 @@
 import React from 'react';
 import './index.css';
 
-const Branch = (props) => (
+const SnapInstruction = (props) => (
   /* Final Rendered Component/States */
-  <div className="branchTitle">
+  <div className="snapInstruction">
     {props.title}
   </div>
 )
 
-export default Branch;
+export default SnapInstruction;

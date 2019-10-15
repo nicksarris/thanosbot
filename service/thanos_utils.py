@@ -59,8 +59,10 @@ def findGroupId(tokenId, groupName):
 def createBots(tokenId, groupId):
 
     output = {}
+    hash =  "%032x" % random.getrandbits(128)
+    print(hash)
     headers = {"content-type": "application/json"}
-    thanosBot = {"bot": {'name': "ThanosBot", 'group_id': groupId}}
+    thanosBot = {"bot": {'name': "ThanosBot", 'group_id': groupId, "callback_url": "http://" + hash}}
     url = "https://api.groupme.com/v3/bots?token=" + tokenId
     response = requests.post(url, data=json.dumps(thanosBot), headers=headers)
 
@@ -109,10 +111,11 @@ def getSelectedUsers(tokenId, groupId, blacklisted):
 
     for user in data["members"]:
         if user['nickname'] not in blacklisted:
-            list.append(userList, user["id"])
+            if "Thanos" not in user["nickname"]:
+                list.append(userList, user["id"])
 
     random.shuffle(userList)
-    output["users"] = userList[0: math.ceil(len(userList)/2)]
+    output["users"] = userList[0: math.ceil(len(userList)/2) + 1]
     output["errors"] = ""
     return output
 
@@ -130,9 +133,9 @@ def removeSelectedUsers(tokenId, groupId, userList):
 
         if (int(response.status_code) not in [200, 201, 202]):
             list.append(output["errors"], json.loads(response.text)["meta"]["errors"])
-
-        data = json.loads(response.text)
-        list.append(output["users"], membershipId)
+        else:
+            data = json.loads(response.text)
+            list.append(output["users"], membershipId)
 
     return output
 
@@ -173,3 +176,7 @@ def destroyBots(tokenId, botId):
     output["message"] = "Bot Successfully Removed"
     output["errors"] = ""
     return output
+
+if __name__ == "__main__":
+    tokenId = "BVXvtRfboejAFcct6hLewW8j3iCmvfL3Et1LPKVA"
+    print(findGroups(tokenId))

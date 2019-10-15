@@ -1,0 +1,17 @@
+/*
+SnapModule Containers/CSS
+*/
+
+.snapModule {
+  width: calc(100% - 40px);
+  max-width: 1024px;
+  margin-top: 50px;
+  padding: 0px 20px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 700px) {
+  .snapModule {
+    margin-top: 30px;
+  }
+}

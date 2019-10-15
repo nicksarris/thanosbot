@@ -54,5 +54,6 @@ def thanosSnap(tokenId, groupId):
         return output
 
     output["message"] = "Successfully Removed Half of all Users"
+    output["users"] = removedUsers["users"]
     output["errors"] = ""
     return output

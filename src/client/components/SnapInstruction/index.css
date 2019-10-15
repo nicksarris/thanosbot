@@ -1,0 +1,10 @@
+/*
+SnapInstruction Containers/CSS
+*/
+
+.snapInstruction {
+  font-weight: 400;
+  font-size: 16px;
+  font-family: "Lato", sans-serif;
+  text-align: center;
+}

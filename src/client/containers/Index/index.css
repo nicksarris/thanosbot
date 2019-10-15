@@ -1,5 +1,5 @@
 /*
-Thanos App s/CSS
+Thanos App Containers/CSS
 */
 
 .thanos {
@@ -10,200 +10,19 @@ Thanos App s/CSS
   align-items: center;
   justify-content: center;
 }
-.thanosContainerHeader {
-  width: 100%;
-  height: 72px;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  top: 0px;
-  z-index: 999;
-}
-.thanosContainerHeaderInner {
-  width: 100%;
-  max-width: 1024px;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-.thanosContainerHeaderLogo {
-  font-weight: 600;
-  font-size: 24px;
-  font-family: "Lato", sans-serif;
-  width: 100%;
-  text-align: left;
-  margin-left: 20px;
-  color: #fff;
-  text-decoration: none;
-  outline: 0;
-}
-.thanosContainerHeaderDocumentation {
-  width: 100%;
-  text-align: right;
-  margin-top: 4px;
-  margin-right: 20px;
-  color: #fff;
-  text-decoration: none;
-  outline: 0;
-}
-.thanosImage {
-  position: relative;
-  width: 100%;
-}
-.thanosImageOverlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: 1;
-}
-.thanosImageBackground {
-	width: 100%;
-	height: 650px;
-	background-color: #000;
-	background-image: url("../../assets/background.jpg");
-	background-size: cover;
-	background-position: center;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	z-index: -1
-}
-.thanosImageInner {
-  width: calc(100% - 40px);
-  text-align: center;
-  max-width: 1024px;
-  z-index: 2;
-}
-.thanosSecondary {
-  padding: 30px;
-  border-radius: 10px;
-  background-color: rgba(35, 47, 62, 0.7);
-  display: inline-block;
-}
-.thanosSecondaryTitle {
-  font-weight: 600;
-  font-size: 48px;
-  font-family: "Lato", sans-serif;
-  color: #fff;
-  text-align: center;
-}
-.thanosTagline {
-  font-weight: 600;
-  font-size: 16px;
-  font-family: "Lato", sans-serif;
-  color: #fff;
-  text-align: center;
-}
-.thanosButton {
-  font-weight: 600;
-  font-size: 16px;
-  font-family: "Lato", sans-serif;
-  background-color: #fff;
-  margin-top: 30px;
-  padding: 8px 0px 10px;
-  cursor: pointer;
-  outline: 0;
-  border: 1px solid #aaa;
-}
-.thanosButton:hover {
-  color: #fff;
-  background: #232f3e;
-  transition: .3s ease-in-out all;
-}
-.thanosDescription {
-  width: calc(100% - 40px);
-  padding: 50px 20px 60px;
-  color: #fff;
-  background: #222;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.thanosDescriptionInner {
-  width: 100%;
-  text-align: left;
-  max-width: 1024px
-}
-.thanosDescriptionSecondary {
-  width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	flex-direction: row
-}
-.thanosDescriptionSecondaryInner {
-  width: 100%;
-	display: grid;
-	grid-gap: 30px;
-	grid-template-columns: calc(100% / 3 - 20px)
-                         calc(100% / 3 - 20px)
-                         calc(100% / 3 - 20px);
-}
-.thanosSnap {
-  width: 100%;
-  padding: 50px 20px 60px;
-  color: #fff;
-  background-image: url("../../assets/background_2.jpg");
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.thanosSnapInner {
-  text-align: left;
-  max-width: 1024px;
-  padding: 30px;
-  background-color: rgba(35, 47, 62, 0.7);
-}
-.thanosSnapTitle {
-  font-weight: 600;
-  font-size: 32px;
-  font-family: "Lato", sans-serif;
-  text-align: center;
-}
-.thanosSnapStepContainer {
-  display: flex;
-}
-.thanosSnapStep {
-  width: calc(100% - 40px);
-  max-width: 1024px;
-  margin-top: 50px;
-  padding: 0px 20px;
-  text-align: center;
-}
-.thanosSnapInstruction {
-  font-weight: 400;
-  font-size: 16px;
-  font-family: "Lato", sans-serif;
-  text-align: center;
-}
-.thanosAPIContainer {
+.thanosFirstModule {
   display: flex;
   text-align: center;
   justify-content: center;
   margin-top: 10px;
 }
-.thanosAPIContainerInner {
+.thanosFirstModuleInner {
   display: flex;
   text-align: center;
   justify-content: center;
   width: 470px;
 }
-.thanosGroupMeAPIKey {
+.thanosFirstModuleInput {
   font-weight: 400;
   font-size: 14px;
   font-family: "Lato", sans-serif;
@@ -214,131 +33,21 @@ Thanos App s/CSS
   margin-right: 10px;
   text-align: left;
 }
-.thanosGroupMeButton {
-  font-weight: 600;
-  font-size: 14px;
-  font-family: "Lato", sans-serif;
-  width: 100px;
-  background-color: #fff;
-  border: 1px solid #aaa;
-  border-radius: 0px;
-  outline: 0;
-}
-.thanosGroupMeButton:hover {
-  color: #fff;
-  background: #232f3e;
-  transition: .3s ease-in-out all;
-}
-.thanosAPITutorial {
-  font-weight: 400;
-  font-size: 12px;
-  font-family: "Lato", sans-serif;
-  text-align: center;
-  margin-top: 10px;
-}
-.thanosAPITutorialSecondary {
-  font-weight: 400;
-  font-size: 12px;
-  font-family: "Lato", sans-serif;
-  text-align: center;
-  margin-top: 5px;
-}
-.thanosSnapGroupSelectContainer {
+.thanosSecondModule {
   width: 100%;
   display: flex;
   justify-content: center;
 }
-.thanosSnapGroupSelectContainerInner {
+.thanosSecondModuleInner {
   width: 470px;
   height: 33px;
   margin-top: 10px;
   border: 1px solid #aaa;
 }
-.thanosGroupMeAPIKeyValue {
-  font-weight: 400;
-  font-size: 14px;
-  font-family: "Lato", sans-serif;
-  text-align: center;
-}
-.thanosSnapButton {
-  font-weight: 600;
-  font-size: 16px;
-  font-family: "Lato", sans-serif;
-  background-color: #fff;
-  cursor: pointer;
-  height: 35px;
-  padding: 0px 20px 5px;
-  outline: 0;
-  border: 1px solid #aaa;
-}
-.thanosSnapButton:hover {
-  color: #fff;
-  background: #232f3e;
-  transition: .3s ease-in-out all;
-}
-.thanosResults {
-  width: 100%;
-  padding: 50px 20px 60px;
-  background: #f9f9f9;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.thanosResultsInner {
-  width: 100%;
-  text-align: left;
-  max-width: 1024px;
-}
-.thanosResultsTitle {
-  font-weight: 600;
-  font-size: 32px;
-  font-family: "Lato", sans-serif;
-  text-align: center;
-}
 
 @media only screen and (max-width: 1024px) {
-  .thanosSnapStepContainer {
-    flex-direction: column;
-  }
-  .thanosSnapInner {
-    flex-direction: column;
-  }
-  .thanosAPIContainerInner {
+  .thanosFirstModuleInner {
     width: 100%;
     max-width: 470px;
-  }
-}
-
-@media only screen and (max-width: 700px) {
-  .thanosDescription {
-    padding: 30px 20px;
-  }
-  .thanosDescriptionSecondaryInner {
-    grid-gap: 15px;
-  	grid-template-columns: calc(100% / 2 - 7.5px)
-  												 calc(100% / 2 - 7.5px)
-  }
-  .thanosSnap {
-    padding: 30px 20px;
-  }
-  .thanosSnapStep {
-    margin-top: 30px;
-  }
-  .thanosSnapButton {
-    margin-top: 10px;
-  }
-}
-
-@media only screen and (max-width: 500px) {
-  .thanosSecondaryTitle {
-    font-size: 36px;
-  }
-  .thanosDescriptionSecondaryInner {
-  	grid-template-columns: calc(100%)
-  }
-  .thanosSnapTitle {
-    font-size: 24px;
   }
 }

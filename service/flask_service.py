@@ -1,16 +1,20 @@
 import warnings
 warnings.filterwarnings('ignore')
 
-import json
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
+import json
 from thanos_service import *
 from thanos_utils import *
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
 api = CORS(app, resources = {r"/*": {"origins": "*"}})
+limiter = Limiter(app, key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"])
 
 """
 Endpoints:
@@ -141,7 +145,7 @@ def serviceUpdateNickname(groupId):
 def serviceGetSelectedUsers(groupId):
     output = {}
     tokenId = request.args.get('token')
-    blacklisted = ["Thanos", "Nick Sarris"]
+    blacklisted = ["Nick Sarris"]
 
     if tokenId == "":
         output["users"] = ""
@@ -208,8 +212,9 @@ def serviceThanos(groupId):
 
     thanosData = thanosSnap(tokenId, groupId)
     output["message"] = thanosData["message"]
+    output["snapped"] = thanosData["users"]
     output["errors"] = thanosData["errors"]
-    return output
+    return json.dumps(output)
 
 """
 ==============================================================================

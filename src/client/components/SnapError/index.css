@@ -21,7 +21,7 @@ SnapError Containers/CSS
 }
 
 @media only screen and (max-width: 700px) {
-  .snapError {
+  .snapErrorTitle {
     margin-top: 30px;
   }
 }

@@ -21,6 +21,7 @@ import SnapModule from "../../components/SnapModule/index.js"
 import SnapModuleRow from "../../components/SnapModuleRow/index.js"
 import SnapStatus from "../../components/SnapStatus/index.js"
 import SnapText from "../../components/SnapText/index.js"
+import SnapTextSecondary from "../../components/SnapTextSecondary/index.js"
 import SnapTitle from "../../components/SnapTitle/index.js"
 /* Components Used */
 
@@ -37,7 +38,6 @@ function Index() {
   const [status, updateStatus] = useState("Inactive");
   const [error, updateError] = useState("");
   const [cooldown, updateCooldown] = useState("");
-  const [hasSnapped, updateSnap] = useState(false);
   const [isSnapping, updateSnapState] = useState(false);
 
   /* Individual Component Refs */
@@ -51,7 +51,7 @@ function Index() {
     /* Check to see if API is Active */
     function checkAPI() {
       const response = new Promise((resolve, reject) => {
-        fetch('http://localhost:3001/api/groups?token=invalidAPIKey', {
+        fetch('http://localhost:3001/api/activity/active', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -144,20 +144,18 @@ function Index() {
               resolve(response);
             })
           }).catch((error) => {
-            updateSnap(false);
             updateError("Invalid Access Token")
             reject(error);
           })
         })
         updateError("");
-        updateSnap(true);
         updateSnapState(false);
         return response;
       }
 
       /* Ensure User has not Snapped Before */
       if (isSnapping === true) {
-        if (hasSnapped === false) {
+        if (cooldown === "") {
           performThanosSnap();
           var currentDate = '[' + new Date().toUTCString() + '] ';
           console.log("Attempted Thanos Snap: " + currentDate);
@@ -165,7 +163,7 @@ function Index() {
       }
 
   /* Thanos Snap Dependencies */
-  }, [finalAPIKey, finalGroupID, isSnapping, hasSnapped]);
+}, [finalAPIKey, finalGroupID, isSnapping, cooldown]);
 
   /* Set Group ID given Input */
   function setGroupData(e) {
@@ -227,10 +225,10 @@ function Index() {
   /* Function to Ensure that User has ONLY SNAPPED ONCE */
   function setThanosSnap() {
     updateError("");
-    if (hasSnapped === false && isSnapping === false) {
+    if (cooldown === "" && isSnapping === false) {
       updateSnapState(true)
     }
-    else if (hasSnapped === true) {
+    else if (cooldown !== "") {
       updateError("You Have Already Performed a Successful Snap");
     }
   }
@@ -271,13 +269,13 @@ function Index() {
                 <SnapButton title={"Submit"} function={setAPIDataSecondary} />
               </div>
             </div>
-            <SnapText style={{"margin-top": "10px"}}>{"Login to "}
+            <SnapText>{"Login to "}
               <a href="https://dev.groupme.com/">https://dev.groupme.com</a>
               {" and locate your 'Access Token'."}
             </SnapText>
-            <SnapText style={{"margin-top": "5px"}}>
-              {"Current Access Token: " + finalAPIKey}
-            </SnapText>
+            <SnapTextSecondary>
+              {"Access Token: " + finalAPIKey}
+            </SnapTextSecondary>
           </SnapModule>
           <SnapModule>
             {/* Snap Functionality (2nd Module) */}
@@ -287,8 +285,8 @@ function Index() {
                 <Select options={options} updateGroup={setGroupData}/>
               </div>
             </div>
-            <SnapText style={{"margin-top": "10px"}}>
-              {"Current Group ID: " + finalGroupID}
+            <SnapText>
+              {"Group ID: " + finalGroupID}
             </SnapText>
           </SnapModule>
         </SnapModuleRow>

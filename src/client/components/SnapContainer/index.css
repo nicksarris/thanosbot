@@ -27,7 +27,7 @@ SnapContainer Containers/CSS
   text-align: left;
   max-width: 1024px;
   padding: 30px 0px;
-  background-color: rgba(35, 47, 62, 0.5);
+  background-color: rgba(35, 47, 62, 0.65);
   z-index: 2;
 }
 

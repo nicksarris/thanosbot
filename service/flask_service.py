@@ -18,21 +18,39 @@ api = CORS(app, resources = {r"/*": {"origins": "*"}})
 Endpoints:
 ==============================================================================
 
+--- Activity Endpoints ---
+/api/activity/active             - Checks to make sure Flask service is active
+
 --- Bot Endpoints ---
-/bots/<groupId>/create       - Create a ThanosBot in Group of provided GroupID
-/bots/<botId>/destroy        - Destroy a ThanosBot of provided BotID
+/api/bots/<groupId>/create       - Create a ThanosBot in Group of provided GroupID
+/api/bots/<botId>/destroy        - Destroy a ThanosBot of provided BotID
 
 --- Group Endpoints ---
-/groups                      - Find All Groups that User is in
-/groups/<groupName>          - Find GroupID given Group Name as a Parameter
-/groups/<groupId>/nickname   - Change Nickname of User in Group
-/groups/<groupId>/users      - Select Half of All Users in Group (To Remove)
-/groups/<groupId>/remove     - Remove ALL Users Passed in POST Request Data
-/groups/<botId>/message      - Send Ending Message After "Snap" Occurs
+/api/groups                      - Find All Groups that User is in
+/api/groups/<groupName>          - Find GroupID given Group Name as a Parameter
+/api/groups/<groupId>/nickname   - Change Nickname of User in Group
+/api/groups/<groupId>/users      - Select Half of All Users in Group (To Remove)
+/api/groups/<groupId>/remove     - Remove ALL Users Passed in POST Request Data
+/api/groups/<botId>/message      - Send Ending Message After "Snap" Occurs
 
 --- Thanos Endpoints ---
-/thanos/<groupId>/<nickname> - Perform a Thanos Snap on a provided GroupID
+/api/thanos/<groupId>/<nickname> - Perform a Thanos Snap on a provided GroupID
 
+==============================================================================
+"""
+
+"""
+Activity Endpoints
+==============================================================================
+"""
+
+@app.route('/api/activity/active', methods = ["GET"])
+@cross_origin(origin = '*',headers = ['Content-Type','Authorization'])
+def checkActivity():
+    output = {"active": True};
+    return json.dumps(output)
+
+"""
 ==============================================================================
 """
 

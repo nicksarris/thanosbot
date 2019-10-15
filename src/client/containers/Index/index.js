@@ -22,7 +22,6 @@ import SnapModule from "../../components/SnapModule/index.js"
 import SnapModuleRow from "../../components/SnapModuleRow/index.js"
 import SnapStatus from "../../components/SnapStatus/index.js"
 import SnapText from "../../components/SnapText/index.js"
-import SnapTextSecondary from "../../components/SnapTextSecondary/index.js"
 import SnapTitle from "../../components/SnapTitle/index.js"
 /* Components Used */
 
@@ -255,10 +254,10 @@ function Index() {
   /* Function to Ensure that User has ONLY SNAPPED ONCE */
   function setThanosSnap() {
     updateError("");
-    if (cooldown === "" && isSnapping === false) {
+    if (cooldown === "N/A" && isSnapping === false) {
       updateSnapState(true)
     }
-    else if (cooldown !== "") {
+    else if (cooldown !== "N/A") {
       updateError("You Have Already Performed a Successful Snap");
     }
   }
@@ -303,9 +302,6 @@ function Index() {
               <a href="https://dev.groupme.com/">https://dev.groupme.com</a>
               {" and locate your 'Access Token'."}
             </SnapText>
-            <SnapTextSecondary>
-              {"Access Token: " + finalAPIKey}
-            </SnapTextSecondary>
           </SnapModule>
           <SnapModule>
             {/* Snap Functionality (2nd Module) */}

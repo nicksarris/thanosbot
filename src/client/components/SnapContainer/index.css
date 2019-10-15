@@ -4,7 +4,7 @@ SnapContainer Containers/CSS
 
 .snapContainer {
   width: calc(100% - 40px);
-  padding: 50px 20px 60px;
+  padding: 70px 20px 80px;
   color: #fff;
   background-image: url("../../assets/background.jpg");
   background-size: cover;
@@ -40,7 +40,7 @@ SnapContainer Containers/CSS
 
 @media only screen and (max-width: 700px) {
   .snapContainer {
-    padding: 30px 20px;
+    padding: 50px 20px;
   }
   .snapContainerInner {
     width: 100%;

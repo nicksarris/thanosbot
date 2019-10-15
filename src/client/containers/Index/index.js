@@ -18,6 +18,7 @@ import SnapContainer from "../../components/SnapContainer/index.js"
 import SnapInstruction from "../../components/SnapInstruction/index.js"
 import SnapModule from "../../components/SnapModule/index.js"
 import SnapModuleRow from "../../components/SnapModuleRow/index.js"
+import SnapStatus from "../../components/SnapStatus/index.js"
 import SnapText from "../../components/SnapText/index.js"
 import SnapTitle from "../../components/SnapTitle/index.js"
 /* Components Used */
@@ -32,6 +33,7 @@ function Index() {
   const [finalAPIKey, finalizeAPIKey] = useState("N/A");
   const [finalGroupID, setGroupID] = useState("N/A");
   const [options, updateOptions] = useState([]);
+  const [status, updateStatus] = useState("Inactive");
   const [hasSnapped, updateSnap] = useState(false);
   const [isSnapping, updateSnapState] = useState(false);
 
@@ -40,14 +42,68 @@ function Index() {
   const scrollToRef = (ref) => window.scrollTo({top: ref.current.offsetTop, behavior: "smooth"})
   const executeScroll = () => scrollToRef(scrollRef)
 
+  /* Status UseEffect */
+  useEffect(() => {
+
+    /* Check to see if API is Active */
+    function checkAPI() {
+      const response = new Promise((resolve, reject) => {
+        fetch('http://localhost:3001/api/groups?token=invalidAPIKey', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }).then((response) => {
+          updateStatus("Active")
+          resolve(response)
+        }).catch((error) => {
+          updateStatus("Inactive")
+          reject(error);
+        })
+      })
+      return response
+    }
+
+    /* Check API's Current Status */
+    checkAPI();
+    var currentDate = '[' + new Date().toUTCString() + '] ';
+    console.log("Checked API Status: " + currentDate)
+
+  }, []);
+
   /* Snap UseEffect */
   useEffect(() => {
+
+      /* Perform Thanos Snap on Selected Group */
+      function performThanosSnap() {
+        const response = new Promise((resolve, reject) => {
+          fetch('http://localhost:3001/api/thanos/' + finalGroupID + '/snap?token=' + finalAPIKey, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }).then((response) => {
+            response.json().then((response) => {
+              resolve(response)
+            })
+          })
+        })
+        updateSnap(true);
+        updateSnapState(false);
+        return response;
+      }
+
+      /* Ensure User has not Snapped Before */
       if (isSnapping === true) {
         if (hasSnapped === false) {
-          performThanosSnap()
+          performThanosSnap();
+          var currentDate = '[' + new Date().toUTCString() + '] ';
+          console.log("Attempted Thanos Snap: " + currentDate);
         }
       }
-  }, [isSnapping]);
+
+  /* Thanos Snap Dependencies */
+  }, [finalAPIKey, finalGroupID, isSnapping, hasSnapped]);
 
   /* Set Group ID given Input */
   function setGroupData(e) {
@@ -58,7 +114,7 @@ function Index() {
   /* Fetch ALL Possible Groups to Snap */
   function findGroups() {
     const response = new Promise((resolve, reject) => {
-      fetch('http://localhost:3001/groups?token=' + currentAPIKey, {
+      fetch('http://localhost:3001/api/groups?token=' + currentAPIKey, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -88,25 +144,6 @@ function Index() {
         setGroupID("N/A")
       }
     });
-  }
-
-  /* Perform Thanos Snap on Selected Group */
-  function performThanosSnap() {
-    const response = new Promise((resolve, reject) => {
-      fetch('http://localhost:3001/thanos/' + finalGroupID + '/snap?token=' + finalAPIKey, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }).then((response) => {
-        response.json().then((response) => {
-          resolve(response)
-        })
-      })
-    })
-    updateSnap(true);
-    updateSnapState(false);
-    return response
   }
 
   /* Utility Function to Update Group Data*/
@@ -149,6 +186,7 @@ function Index() {
       {/* Snap Functionality */}
       <SnapContainer ref={scrollRef}>
         <SnapTitle title={"Perform the Snap"} />
+        <SnapStatus status={status} />
         <SnapModuleRow>
           <SnapModule>
             <SnapInstruction title={"Step 1: Enter your Access Token"} />

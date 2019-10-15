@@ -69,3 +69,9 @@ MainImage Containers/CSS
   background: #232f3e;
   transition: .3s ease-in-out all;
 }
+
+@media only screen and (max-width: 500px) {
+  .mainImageTitle {
+    font-size: 36px;
+  }
+}

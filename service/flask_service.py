@@ -13,8 +13,6 @@ from thanos_utils import *
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
 api = CORS(app, resources = {r"/*": {"origins": "*"}})
-limiter = Limiter(app, key_func=get_remote_address,
-    default_limits=["200 per day", "50 per hour"])
 
 """
 Endpoints:
@@ -43,7 +41,7 @@ Bot Endpoints
 ==============================================================================
 """
 
-@app.route('/bots/<groupId>/create', methods = ["GET"])
+@app.route('/api/bots/<groupId>/create', methods = ["GET"])
 @cross_origin(origin = '*',headers = ['Content-Type','Authorization'])
 def serviceCreateBots(groupId):
     output = {}
@@ -59,7 +57,7 @@ def serviceCreateBots(groupId):
     output["errors"] = createdData["errors"]
     return json.dumps(output)
 
-@app.route('/bots/<botId>/destroy', methods = ["GET"])
+@app.route('/api/bots/<botId>/destroy', methods = ["GET"])
 @cross_origin(origin = '*',headers = ['Content-Type','Authorization'])
 def serviceDestroyBots(groupId, botId):
     output = {}
@@ -84,7 +82,7 @@ Group Endpoints
 ==============================================================================
 """
 
-@app.route('/groups', methods = ["GET"])
+@app.route('/api/groups', methods = ["GET"])
 @cross_origin(origin = '*',headers = ['Content-Type','Authorization'])
 def serviceFindGroups():
     output = {}
@@ -102,7 +100,7 @@ def serviceFindGroups():
     output["errors"] = currentGroups["errors"]
     return json.dumps(output)
 
-@app.route('/groups/<groupName>', methods = ["GET"])
+@app.route('/api/groups/<groupName>', methods = ["GET"])
 @cross_origin(origin = '*',headers = ['Content-Type','Authorization'])
 def serviceFindGroupId(groupName):
     output = {}
@@ -118,7 +116,7 @@ def serviceFindGroupId(groupName):
     output["errors"] = currentGroupId["errors"]
     return json.dumps(output)
 
-@app.route('/groups/<groupId>/nickname', methods = ["GET"])
+@app.route('/api/groups/<groupId>/nickname', methods = ["GET"])
 @cross_origin(origin = '*',headers = ['Content-Type','Authorization'])
 def serviceUpdateNickname(groupId):
     output = {}
@@ -140,7 +138,7 @@ def serviceUpdateNickname(groupId):
     output["errors"] = updatedNickname["errors"]
     return json.dumps(output)
 
-@app.route('/groups/<groupId>/users', methods = ["GET"])
+@app.route('/api/groups/<groupId>/users', methods = ["GET"])
 @cross_origin(origin = '*',headers = ['Content-Type','Authorization'])
 def serviceGetSelectedUsers(groupId):
     output = {}
@@ -157,7 +155,7 @@ def serviceGetSelectedUsers(groupId):
     output["errors"] = selectedUsers["errors"]
     return json.dumps(output)
 
-@app.route('/groups/<groupId>/remove', methods = ["POST"])
+@app.route('/api/groups/<groupId>/remove', methods = ["POST"])
 @cross_origin(origin = '*',headers = ['Content-Type','Authorization'])
 def serviceRemoveSelectedUsers(groupId):
     output = {}
@@ -174,7 +172,7 @@ def serviceRemoveSelectedUsers(groupId):
     output["errors"] = removedUsers["errors"]
     return json.dumps(output)
 
-@app.route('/groups/<botId>/message', methods = ["GET"])
+@app.route('/api/groups/<botId>/message', methods = ["GET"])
 @cross_origin(origin = '*',headers = ['Content-Type','Authorization'])
 def serviceSendMessage(botId):
     output = {}
@@ -199,7 +197,7 @@ Thanos Endpoints
 ==============================================================================
 """
 
-@app.route('/thanos/<groupId>/snap', methods = ["GET"])
+@app.route('/api/thanos/<groupId>/snap', methods = ["GET"])
 @cross_origin(origin = '*',headers = ['Content-Type','Authorization'])
 def serviceThanos(groupId):
     output = {}

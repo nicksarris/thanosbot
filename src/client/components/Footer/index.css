@@ -13,3 +13,9 @@ Footer Containers/CSS
   padding: 30px 20px;
   border-top: 3px solid #555;
 }
+.footerContainerDonations {
+  font-weight: 400;
+  font-size: 14px;
+  font-family: "Lato", sans-serif;
+  margin-top: 5px;
+}

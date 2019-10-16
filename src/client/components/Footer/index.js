@@ -4,7 +4,8 @@ import './index.css';
 const Footer = (props) => (
   /* Final Rendered Component/States */
   <div className="footerContainer">
-    &copy;<span>{" 2019 Chi Solutions. All rights reserved. Created by Nick Sarris"}</span>
+    &copy;<span>{" October 2019 | Chi Solutions. All Rights Reserved. Created by Nick Sarris"}</span>
+    <div className="footerContainerDonations">{"Donations Appreciated  -  Venmo: @nicksr987"}</div>
   </div>
 )
 

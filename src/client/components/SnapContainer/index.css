@@ -4,7 +4,7 @@ SnapContainer Containers/CSS
 
 .snapContainer {
   width: calc(100% - 40px);
-  padding: 70px 20px 80px;
+  padding: 80px 20px;
   color: #fff;
   background-image: url("../../assets/background.jpg");
   background-size: cover;
@@ -28,6 +28,7 @@ SnapContainer Containers/CSS
   text-align: left;
   max-width: 1024px;
   padding: 30px 0px;
+  border-radius: 10px;
   background-color: rgba(35, 47, 62, 0.65);
   z-index: 2;
 }

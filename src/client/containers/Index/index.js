@@ -10,7 +10,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Attribute from "../../components/Attribute/index.js"
 import Description from "../../components/Description/index.js"
 import Footer from "../../components/Footer/index.js"
-import HeaderTransparent from "../../components/HeaderTransparent/index.js"
+import Header from "../../components/Header/index.js"
 import MainImage from "../../components/MainImage/index.js"
 import Select from "../../components/Select/index.js"
 import SnapButton from "../../components/SnapButton/index.js"
@@ -22,6 +22,7 @@ import SnapModule from "../../components/SnapModule/index.js"
 import SnapModuleRow from "../../components/SnapModuleRow/index.js"
 import SnapStatus from "../../components/SnapStatus/index.js"
 import SnapText from "../../components/SnapText/index.js"
+import SnapTextSecondary from "../../components/SnapTextSecondary/index.js"
 import SnapTitle from "../../components/SnapTitle/index.js"
 /* Components Used */
 
@@ -49,7 +50,7 @@ function Index() {
   useEffect(() => {
 
     /* Convert 24 Hour Cycle to 12 Hour Cycle */
-    function formatTime(hour) {
+    function formatHour(hour) {
       if (hour > 12) {
         return hour - 12;
       }
@@ -59,13 +60,21 @@ function Index() {
       return hour;
     }
 
+    /* Convert all Minutes < 10 to be "0" + Minutes */
+    function formatMinute(minute) {
+      if (minute < 10) {
+        return "0" + minute
+      }
+      return minute
+    }
+
     /* Check to see if Snap is on Cooldown */
     function checkCooldown(currentDate, cooldownDate) {
       if (cooldownDate == null) {
         updateCooldown("N/A");
       }
       else if (currentDate.getTime() < cooldownDate.getTime()) {
-        var time = formatTime(cooldownDate.getHours()) + ":" + cooldownDate.getMinutes()
+        var time = formatHour(cooldownDate.getHours()) + ":" + formatMinute(cooldownDate.getMinutes())
         console.log("Current Cooldown Period: " + time)
         updateCooldown(time);
       }
@@ -130,7 +139,7 @@ function Index() {
   useEffect(() => {
 
     /* Convert 24 Hour Cycle to 12 Hour Cycle */
-    function formatTime(hour) {
+    function formatHour(hour) {
       if (hour > 12) {
         return hour - 12;
       }
@@ -140,13 +149,21 @@ function Index() {
       return hour;
     }
 
+    /* Convert all Minutes < 10 to be "0" + Minutes */
+    function formatMinute(minute) {
+      if (minute < 10) {
+        return "0" + minute
+      }
+      return minute
+    }
+
     /* Check to see if Snap is on Cooldown */
     function checkCooldown(currentDate, cooldownDate) {
       if (cooldownDate == null) {
         updateCooldown("N/A");
       }
       else if (currentDate.getTime() < cooldownDate.getTime()) {
-        var time = formatTime(cooldownDate.getHours()) + ":" + cooldownDate.getMinutes()
+        var time = formatHour(cooldownDate.getHours()) + ":" + formatMinute(cooldownDate.getMinutes())
         console.log("Current Cooldown Period: " + time)
         updateCooldown(time);
       }
@@ -267,7 +284,7 @@ function Index() {
     <div className="thanos">
 
       {/* Snap Header */}
-      <HeaderTransparent />
+      <Header />
       <MainImage title={"ThanosBot"}
                  tagline={"Perfectly balanced, as all things should be"}
                  button={"Perform the Snap"}
@@ -287,7 +304,6 @@ function Index() {
         <SnapError error={error} />
         <SnapModuleRow>
           <SnapModule>
-            {/* Snap Functionality (1st Module) */}
             <SnapInstruction title={"Step 1: Enter your Access Token"} />
             <div className="thanosFirstModule">
               <div className="thanosFirstModuleInner">
@@ -300,11 +316,13 @@ function Index() {
             </div>
             <SnapText>{"Login to "}
               <a href="https://dev.groupme.com/">https://dev.groupme.com</a>
-              {" and locate your 'Access Token'."}
+              {" and locate your 'Access Token'"}
             </SnapText>
+            <SnapTextSecondary>
+              {"Note - We will NEVER store your 'Token'"}
+            </SnapTextSecondary>
           </SnapModule>
           <SnapModule>
-            {/* Snap Functionality (2nd Module) */}
             <SnapInstruction title={"Step 2: Select the Group to Snap"} />
             <div className="thanosSecondModule">
               <div className="thanosSecondModuleInner">
@@ -312,13 +330,20 @@ function Index() {
               </div>
             </div>
             <SnapText>
-              {"Group ID: " + finalGroupID}
+              {"Current Group ID: " + finalGroupID}
             </SnapText>
           </SnapModule>
         </SnapModuleRow>
         <SnapModule>
           <SnapCooldown cooldown={cooldown} />
-          <SnapButton title={"Perform the Snap"} function={setThanosSnap} />
+          {(cooldown !== "N/A") ? (
+            <div className="thanosButtonContainer">
+              <div className="thanosButtonOverlay" />
+              <SnapButton title={"Finding the Stones ..."} function={setThanosSnap} />
+            </div>
+          ) : (
+            <SnapButton title={"Perform the Snap"} function={setThanosSnap} />
+          )}
         </SnapModule>
       </SnapContainer>
 

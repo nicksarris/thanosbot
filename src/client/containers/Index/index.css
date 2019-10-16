@@ -44,6 +44,15 @@ Thanos App Containers/CSS
   margin-top: 10px;
   border: 1px solid #aaa;
 }
+.thanosButtonContainer {
+  display: flex;
+  justify-content: center;
+}
+.thanosButtonOverlay {
+  width: 188px;
+  height: 35px;
+  position: absolute;
+}
 
 @media only screen and (max-width: 1024px) {
   .thanosFirstModuleInner {

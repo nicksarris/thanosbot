@@ -9,7 +9,6 @@ import { Helmet } from 'react-helmet';
 
 /* Components Used */
 import Index from './containers/Index/index';
-import Documentation from './containers/Documentation/index';
 /* Components Used */
 
 import 'font-awesome/css/font-awesome.min.css';
@@ -29,7 +28,6 @@ export default function App() {
         <Switch>
           <Route exact path="/" component={Index} />
           <Route exact path="/index" component={Index} />
-          <Route exact path="/documentation" component={Documentation} />
         </Switch>
       </div>
     </BrowserRouter>

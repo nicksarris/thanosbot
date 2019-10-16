@@ -1,0 +1,11 @@
+/*
+SnapText Containers/CSS
+*/
+
+.snapTextSecondary {
+  font-weight: 400;
+  font-size: 12px;
+  font-family: "Lato", sans-serif;
+  text-align: center;
+  margin-top: 5px;
+}

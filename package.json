@@ -2,6 +2,7 @@
   "name": "thanos_web_application",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "font-awesome": "^4.7.0",
     "react": "^16.10.2",

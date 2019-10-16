@@ -86,7 +86,7 @@ function Index() {
     /* Check to see if API is Active */
     function checkAPI() {
       const response = new Promise((resolve, reject) => {
-        fetch('http://localhost:3001/api/activity/active', {
+        fetch('/api/activity/active', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -175,7 +175,7 @@ function Index() {
     /* Perform Thanos Snap on Selected Group */
     function performThanosSnap() {
       const response = new Promise((resolve, reject) => {
-        fetch('http://localhost:3001/api/thanos/' + finalGroupID + '/snap?token=' + finalAPIKey, {
+        fetch('/api/thanos/' + finalGroupID + '/snap?token=' + finalAPIKey, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -221,7 +221,7 @@ function Index() {
   /* Fetch ALL Possible Groups to Snap */
   function findGroups() {
     const response = new Promise((resolve, reject) => {
-      fetch('http://localhost:3001/api/groups?token=' + currentAPIKey, {
+      fetch('/api/groups?token=' + currentAPIKey, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

@@ -70,7 +70,7 @@ function Index() {
 
     /* Check to see if Snap is on Cooldown */
     function checkCooldown(currentDate, cooldownDate) {
-      if (cooldownDate == null) {
+      if (cooldownDate === null) {
         updateCooldown("N/A");
       }
       else if (currentDate.getTime() < cooldownDate.getTime()) {
@@ -159,7 +159,7 @@ function Index() {
 
     /* Check to see if Snap is on Cooldown */
     function checkCooldown(currentDate, cooldownDate) {
-      if (cooldownDate == null) {
+      if (cooldownDate === null) {
         updateCooldown("N/A");
       }
       else if (currentDate.getTime() < cooldownDate.getTime()) {
@@ -273,11 +273,11 @@ function Index() {
     updateError("");
     const blacklistedGroups = ["50177759", "39872008", "28679901"]
     if (cooldown === "N/A" && isSnapping === false) {
-      if (blacklistedGroups.includes(finalGroupID) == false) {
+      if (blacklistedGroups.includes(finalGroupID) === false) {
         updateSnapState(true)
       }
     }
-    else if (blacklistedGroups.includes(finalGroupID) == true) {
+    else if (blacklistedGroups.includes(finalGroupID) === true) {
       updateError("The Selected Group is Immune to the Snap");
     }
     else if (cooldown !== "N/A") {

@@ -34,7 +34,7 @@ Endpoints:
 /api/groups/<botId>/message      - Send Ending Message After "Snap" Occurs
 
 --- Thanos Endpoints ---
-/api/thanos/<groupId>/<nickname> - Perform a Thanos Snap on a provided GroupID
+/api/thanos/<groupId> - Perform a Thanos Snap on a provided GroupID
 
 ==============================================================================
 """

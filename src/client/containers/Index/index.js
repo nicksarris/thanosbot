@@ -172,45 +172,45 @@ function Index() {
       }
     }
 
-      /* Perform Thanos Snap on Selected Group */
-      function performThanosSnap() {
-        const response = new Promise((resolve, reject) => {
-          fetch('http://localhost:3001/api/thanos/' + finalGroupID + '/snap?token=' + finalAPIKey, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }).then((response) => {
-            response.json().then((response) => {
-              var currentDate = new Date()
-              var cooldownDate = new Date(currentDate.getTime() + 30 * 60000);
-              window.localStorage.setItem("cooldown", cooldownDate);
-              resolve(response);
-            })
-          }).catch((error) => {
-            updateError("Invalid Access Token")
-            reject(error);
+    /* Perform Thanos Snap on Selected Group */
+    function performThanosSnap() {
+      const response = new Promise((resolve, reject) => {
+        fetch('http://localhost:3001/api/thanos/' + finalGroupID + '/snap?token=' + finalAPIKey, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }).then((response) => {
+          response.json().then((response) => {
+            var currentDate = new Date()
+            var cooldownDate = new Date(currentDate.getTime() + 30 * 60000);
+            window.localStorage.setItem("cooldown", cooldownDate);
+            resolve(response);
           })
+        }).catch((error) => {
+          updateError("Invalid Access Token")
+          reject(error);
         })
-        updateError("");
-        updateSnapState(false);
-        var currentDate = new Date()
-        var cooldownDate = new Date(currentDate.getTime() + 30 * 60000);
-        checkCooldown(currentDate, cooldownDate)
-        return response;
-      }
+      })
+      updateError("");
+      updateSnapState(false);
+      var currentDate = new Date()
+      var cooldownDate = new Date(currentDate.getTime() + 30 * 60000);
+      checkCooldown(currentDate, cooldownDate)
+      return response;
+    }
 
-      /* Ensure User has not Snapped Before */
-      if (isSnapping === true) {
-        if (cooldown === "N/A") {
-          performThanosSnap();
-          var currentDate = '[' + new Date().toUTCString() + '] ';
-          console.log("Attempted Thanos Snap: " + currentDate);
-        }
+    /* Ensure User has not Snapped Before */
+    if (isSnapping === true) {
+      if (cooldown === "N/A") {
+        performThanosSnap();
+        var currentDate = '[' + new Date().toUTCString() + '] ';
+        console.log("Attempted Thanos Snap: " + currentDate);
       }
+    }
 
   /* Thanos Snap Dependencies */
-}, [finalAPIKey, finalGroupID, isSnapping, cooldown]);
+  }, [finalAPIKey, finalGroupID, isSnapping, cooldown]);
 
   /* Set Group ID given Input */
   function setGroupData(e) {

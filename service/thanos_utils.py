@@ -142,7 +142,7 @@ def sendMessage(tokenId, botId):
 
     output = {}
     message = "Perfectly balanced, as all things should be... \n\n" + \
-              "Check out [Insert Site] for documentation and further " + \
+              "Check out https://thanosbot.com for documentation and further " + \
               "information regarding this bot"
 
     messageData = {"bot_id": botId, 'text': message}

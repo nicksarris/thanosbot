@@ -240,3 +240,11 @@ def serviceThanos(groupId):
 """
 ==============================================================================
 """
+
+def main():
+    currentPort = 3001
+    app.run(host = '0.0.0.0', port = currentPort, threaded = True)
+
+if __name__ == '__main__':
+
+    main()

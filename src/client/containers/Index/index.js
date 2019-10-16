@@ -92,8 +92,16 @@ function Index() {
             'Content-Type': 'application/json',
           },
         }).then((response) => {
-          updateStatus("Active")
-          resolve(response)
+          response.json().then((response) => {
+            if (response["active"] === true) {
+              updateStatus("Active")
+              resolve(response)
+            }
+          }).catch((error) => {
+            updateStatus("Inactive")
+            updateError("The Service is Currently Unavailable")
+            reject(error);
+          })
         }).catch((error) => {
           updateStatus("Inactive")
           updateError("The Service is Currently Unavailable")

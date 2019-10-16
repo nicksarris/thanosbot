@@ -27,9 +27,10 @@ Thanos App Containers/CSS
   font-size: 14px;
   font-family: "Lato", sans-serif;
   width: calc(100% - 110px);
+  height: 33px;
   border: 1px solid #aaa;
   border-radius: 0px;
-  padding: 8px;
+  padding: 0px 8px;
   margin-right: 10px;
   text-align: left;
 }

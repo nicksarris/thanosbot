@@ -271,11 +271,20 @@ function Index() {
   /* Function to Ensure that User has ONLY SNAPPED ONCE */
   function setThanosSnap() {
     updateError("");
+    const blacklistedGroups = ["50177759", "39872008", "28679901"]
     if (cooldown === "N/A" && isSnapping === false) {
-      updateSnapState(true)
+      if (blacklistedGroups.includes(finalGroupID) == false) {
+        updateSnapState(true)
+      }
+    }
+    else if (blacklistedGroups.includes(finalGroupID) == true) {
+      updateError("The Selected Group is Immune to the Snap");
     }
     else if (cooldown !== "N/A") {
       updateError("You Have Already Performed a Successful Snap");
+    }
+    else {
+      updateError("Unexpected Error. Try Again.")
     }
   }
 

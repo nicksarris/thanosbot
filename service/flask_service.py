@@ -220,15 +220,20 @@ Thanos Endpoints
 def serviceThanos(groupId):
     output = {}
     tokenId = request.args.get('token')
+    blacklistedGroups = ["50177759", "39872008", "28679901"]
 
     if tokenId == "":
         output["message"] = ""
         output["errors"] = "Invalid Access Token"
         return json.dumps(output)
 
+    if groupId in blacklistedGroups:
+        output["message"] = ""
+        output["errors"] = "The Attempted Group is Immune to the Snap"
+        return json.dumps(output)
+
     thanosData = thanosSnap(tokenId, groupId)
     output["message"] = thanosData["message"]
-    output["snapped"] = thanosData["users"]
     output["errors"] = thanosData["errors"]
     return json.dumps(output)
 

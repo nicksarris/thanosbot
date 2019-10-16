@@ -18,10 +18,7 @@ export default function App() {
   return (
     <BrowserRouter basename="/">
       <div>
-        <Helmet
-          titleTemplate="%s - ThanosBot"
-          defaultTitle="ThanosBot"
-        >
+        <Helmet titleTemplate="%s - ThanosBot" defaultTitle="ThanosBot">
           <link href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap" rel="stylesheet" />
           <meta name="description" content="Perfectly Balancing GroupMe Groups" />
         </Helmet>

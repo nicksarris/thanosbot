@@ -24,7 +24,7 @@ In spite of the fact that only two endpoints are used in order to perform the "S
 Descriptions of each endpoint associated with the project are below. Each description will include the main URL of the endpoint, individual parameters, and the expected output. The current base URL is as follows:
 
 <pre>
-http://localhost:3001/
+http://thanosbot/api/
 </pre>
 
 **Activity** - Checks to make sure Flask service is active

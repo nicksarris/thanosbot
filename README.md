@@ -2,6 +2,8 @@
 
 ---
 
+Hosted: https://thanosbot.com
+
 This repository contains a GroupMe Bot/Web Application that allows for the user to perform a "Thanos Snap" on any group that they are currently in. As explained by Marvel, a "Thanos Snap" in this regard will quickly and painlessly randomly remove half of all users in the aforementioned group. This project is solely meant as a learning experience and should not be used for malicious purposes in any manner.
 
 ---
